@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from accounts.models import UserProfile
+from movies.models import Comment, Movie
 
 # Create your views here.
 def login_user(request):
@@ -66,6 +68,13 @@ def register_user(request):
 
     return render(request, 'register.html')
 
-
+@login_required(login_url='login')
 def user_profile(request):
-    return render(request, 'profile.html')
+    profile = UserProfile.objects.get(person=request.user)
+    user_movies = Movie.objects.filter(owner=request.user)
+    user_reviews = Comment.objects.filter(person=request.user)
+    return render(request, 'profile.html',{
+        'profile': profile,
+        'user_movies': user_movies,
+        'user_reviews': user_reviews
+    })

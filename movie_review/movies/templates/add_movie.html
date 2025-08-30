@@ -51,19 +51,19 @@
           <hr class="border-1 border-white/10 my-4" />
           <!-- Profile -->
           <div class="w-full flex justify-between items-center">
-            <a href="profile.html" class="flex flex-row items-center gap-5">
+            <a href="{% url 'profile' %}" class="flex flex-row items-center gap-5">
               <img
                 src="images/user.jpg"
                 alt="profile picture"
                 class="w-12 h-12 rounded-full"
               />
               <div class="">
-                <p class="font-bold">Mahesh</p>
-                <p class="opacity-70">mahesh1234@gmail.com</p>
+                <p class="font-bold">{{ request.user.username }}</p>
+                <p class="opacity-70">{{ request.user.email }}</p>
               </div>
             </a>
             <!-- Logout -->
-            <a href="login.html">
+            <a href="{% url 'logout' %}">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -100,15 +100,15 @@
               id="profile-popup"
             >
               <a
-                href="profile.html"
+                href="{% url 'profile' %}"
                 class="flex flex-col p-2 rounded-lg hover:bg-pgray/50"
               >
-                <p class="font-bold text-pgreen text-lg">Mahesh</p>
-                <p class="text-pgreen/50">mahesh1234@gmail.com</p>
+                <p class="font-bold text-pgreen text-lg">{{ request.user.username }}</p>
+                <p class="text-pgreen/50">{{ request.user.email }}</p>
               </a>
               <hr />
               <a
-                href="login.html"
+                href="{% url 'logout' %}"
                 class="flex justify-between font-bold text-red-400 p-2 rounded-lg hover:bg-pgray"
                 >Logout
                 <svg

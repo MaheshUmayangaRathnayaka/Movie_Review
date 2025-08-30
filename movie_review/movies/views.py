@@ -2,36 +2,40 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.text import slugify
+from django.db.models import Avg
 
 from accounts.models import UserProfile
 from movies.forms import CommentForm
 from movies.models import Comment, Movie, Rating
-from django.shortcuts import get_object_or_404
-
 
 # Create your views here.
-from .forms import MovieForm
-
-def update_movie(request, movie_id):
-    movie = get_object_or_404(Movie, id=movie_id)
-    if request.method == "POST":
-        form = MovieForm(request.POST, request.FILES, instance=movie)
-        if form.is_valid():
-            form.save()
-            return redirect('movie_review_page', slug=movie.slug, movie_id=movie.id)
-    else:
-        form = MovieForm(instance=movie)
-
-    return render(request, 'update_movie.html', {'form': form, 'movie': movie})
-
 def index(request):
-    movies = Movie.objects.all()
+    query = request.GET.get('q', '')
+    sort = request.GET.get('sort', '')
+    category = request.GET.get('category', '')
+
+    movies = Movie.objects.filter(title__icontains=query)
+
+    if category:
+        movies = movies.filter(category__icontains=category)
+
+    if sort == 'popular':
+        movies = movies.annotate(avg_rating=Avg('ratings__rating')).order_by('-avg_rating')
+
+    elif sort == 'latest':
+        movies = movies.order_by('-created_at')
+
+    profile = UserProfile.objects.get(person=request.user)
+    
     return render(request, 'index.html', {
-        'movies':movies
+        'movies':movies,
+        'profile': profile
     }) 
 
 # Add a movie
+@login_required(login_url='login')
 def add_movie(request):
+    profile = UserProfile.objects.get(person=request.user)
     if request.method == 'POST':
         title = request.POST.get('title')
         owner =request.user
@@ -65,7 +69,9 @@ def add_movie(request):
 
         return redirect('home')
 
-    return render(request, 'add_movie.html')
+    return render(request, 'add_movie.html', {
+        'profile': profile
+    })
 
 
 @login_required(login_url='login')

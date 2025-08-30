@@ -50,3 +50,4 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f"Comment {self.comment} for {self.movie}"
+    

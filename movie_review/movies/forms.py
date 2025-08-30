@@ -1,11 +1,8 @@
 from django import forms
 from .models import Comment, Movie
-# from .models import Movie
 
 common_class = "mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-pgreen font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
           
-
-
 
 class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -19,6 +16,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('comment',)
         labels = {"comment" : ("Change your comment below"),}
+
 
 class MovieForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

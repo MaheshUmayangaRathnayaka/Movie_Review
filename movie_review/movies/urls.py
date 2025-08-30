@@ -9,6 +9,4 @@ urlpatterns = [
     path('update-comment/<str:comment_id>/', views.update_comment, name='update_comment'),
     path('delete-comment/<str:comment_id>/', views.delete_comment, name='delete_comment'),
     path('update-movie/<str:movie_slug>/<str:movie_id>/', views.update_movie, name='update_movie'),
-    # path('movie/<uuid:movie_id>/update/', views.update_movie, name='update_movie'),
-
 ]
