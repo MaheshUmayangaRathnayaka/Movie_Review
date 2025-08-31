@@ -9,7 +9,7 @@ from movies.models import Comment, Movie
 
 # Create your views here.
 def login_user(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -31,7 +31,7 @@ def logout_user(request):
 
 
 def register_user(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
         firstname = request.POST.get('firstname')

@@ -31,7 +31,6 @@
           <p class="text-gray-300">
             <span class="text-pgreen font-semibold">Full Name: </span> 
             {{ profile.person.first_name }} {{ profile.person.last_name }}
-          
           </p>
           <p class="text-gray-300">
             <span class="text-pgreen font-semibold">Username: </span> {{ profile.person.username }}
@@ -75,7 +74,7 @@
                 class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
               >
                 <p class="flex gap-1 items-center">
-                  {{ movie.average_rating | floatformat:2}}
+                  {{ movie.average_rating | floatformat:2 }}
 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

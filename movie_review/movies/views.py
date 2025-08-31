@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.db.models import Avg
 
 from accounts.models import UserProfile
-from movies.forms import CommentForm
+from movies.forms import CommentForm, MovieForm
 from movies.models import Comment, Movie, Rating
 
 # Create your views here.
