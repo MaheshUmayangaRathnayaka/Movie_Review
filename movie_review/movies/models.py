@@ -20,7 +20,7 @@ class Movie(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.title} uploaded by {self.ownner}"
+        return f"{self.title} uploaded by {self.owner}"
     
 
     def average_rating(self):
